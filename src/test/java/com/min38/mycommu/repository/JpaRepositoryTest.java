@@ -2,6 +2,7 @@ package com.min38.mycommu.repository;
 
 import com.min38.mycommu.config.JpaConfig;
 import com.min38.mycommu.domain.Article;
+import com.min38.mycommu.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,16 @@ class JpaRepositoryTest {
 
     private ArticleRepository articleRepository;
     private ArticleCommentRepository articleCommentRepository;
+    private UserAccountRepository userAccountRepository;
 
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
+            @Autowired UserAccountRepository userAccountRepository,
             @Autowired ArticleCommentRepository articleCommentRepository
     ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @DisplayName("Select 테스트")
@@ -49,9 +53,11 @@ class JpaRepositoryTest {
     void givenTestData_WhenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("stranger", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new article", "new content", "#spring");
 
         // When
-        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
+        articleRepository.save(article);
 
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
