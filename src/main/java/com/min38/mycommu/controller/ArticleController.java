@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RequestMapping("/articles")
 @Controller
@@ -32,7 +30,7 @@ public class ArticleController {
             ModelMap map
     ) {
         map.addAttribute("articles", articleService.searchArticles(searchType, searchValue, pageable).map(ArticleResponse::from));
-        map.addAttribute("articles", List.of());
+
         return "articles/index";
     }
 
@@ -44,4 +42,5 @@ public class ArticleController {
 
         return "articles/detail";
     }
+
 }
