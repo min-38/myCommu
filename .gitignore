@@ -39,5 +39,8 @@ out/
 ### yaml ###
 src/main/resources/application.yaml
 
+### data sql ###
+src/main/resources/data.sql
+
 # Querydsl
 src/main/generated
