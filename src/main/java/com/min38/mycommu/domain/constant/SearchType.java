@@ -1,4 +1,4 @@
-package com.min38.mycommu.domain.type;
+package com.min38.mycommu.domain.constant;
 
 import lombok.Getter;
 
